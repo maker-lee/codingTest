@@ -28,9 +28,9 @@ while cnt < M : # 총 몇번 더해야하나
 print(sum1) # 완성 
 
 
-# 변경 
 
-# 실패 1
+
+# 실패 사례 1
 cnt = 1
 sum1 = 0
 while cnt < 8 :
