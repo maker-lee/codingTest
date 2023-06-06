@@ -76,11 +76,11 @@ N,K는 자연수로 주어지며 공백으로 구분된다. N은 K 보다 크거
 num = input('숫자를 입력하세요.')
 N, K = map(int,num.split(" "))
 cnt = 0
-while N != 1 :
-    if N % K >= 1 :
-        N -= N
+while N != 1 : 
+    if N % K >= 1 : # N을 K로 나눠서 나머지가 1보다 크거나 같으면
+        N -= 1 # 방법2를 써라
         cnt += 1
-    elif N % K == 0 :
-        N /= K 
+    elif N % K == 0 : # 똑 떨어지면 
+        N /= K  # 방법1을 써라 
         cnt += 1
-print(cnt)
+print(cnt,'번')
