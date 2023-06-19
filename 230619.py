@@ -1,12 +1,12 @@
 '''p314 만들 수 없는 금액
-N개의 동전을 이용하여 만들 수 없는 양의 정수 금액 중 최솟값을 구하자
+N개의 동전을 이용하여 만들 수 없는 양의 정수 금액 중 최솟값을 구하자 (N는 1000이하의 자연수)
 
+예시1
 N = 5
 a = [3,2,1,1,9] 
 답은 8원
 
-N는 1000이하의 자연수
-
+예시2
 N=3
 a=[3,5,7]
 답은 1원
@@ -14,44 +14,27 @@ a=[3,5,7]
 
 import itertools
 
-N = 3
-a = [3,5,7]
-# #nP1 ~ nPn
-
-# # 작은수로 나열한다.
-# # 1이 없으면 1을 반환한다
+N = 5
+a = [3,2,1,1,9] 
+ 
+# 작은수로 나열한다.
+# 1이 없으면 1을 반환한다 #nP1 ~ nPn
 
 lst = []
-for i in range(1,N+1) :
-    num_list = list(map(sum,(itertools.combinations(a,i))))
-    lst.append(num_list)
-lst = sorted(set(itertools.chain.from_iterable(lst)),reverse=False) #[3, 5, 7, 8, 10, 12, 15]
-print(lst)
+for i in range(1,N+1) : 
+    num_list = list(map(sum,(itertools.combinations(a,i)))) # 리스트에 있는 숫자들의 모든 덧셈 조합을 계산해본다. 
+    lst.append(num_list) # 빈 리스트에 담는다. 
+lst = sorted(set(itertools.chain.from_iterable(lst)),reverse=False) # 중복은 제거하고, 이중 리스트도 벗김
+#print(lst) #[1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16] 
 
-cnt = 1
+cnt = 1 #가장 작은수인 1부터 시작해서 1,2,3,4... +1 없는 수가 나올때까지 비교함 
 for j in range(len(lst)) :
     if lst[j] == cnt :
         cnt += 1
     else :
-        print(cnt)
+        print(cnt) # 없는 숫자를 출력한다. 
         break
     
-
-# 책 풀이 
-
-# n = 5
-# data = [3,2,1,1,9]
-# #data = list(map(int,input().split))
-# data.sort() # 최소값을 구하므로 작은 숫자로 정렬한다. 
-# # print(data)  # [1, 1, 2, 3, 9]
-
-# coin = 1 #최소값을 구하므로 1부터 +1 씩 늘린다. 
-# for i in data : # 가진 숫자들을 하나씩 꺼내서 더할 예정
-#     if coin < i :
-#         break
-#     coin += i # 1+1, 2+1, 3+2, 5+3
-# print(coin)
-
 
 
 
