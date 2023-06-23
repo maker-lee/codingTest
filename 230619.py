@@ -144,5 +144,51 @@ while True :
 
 
 
-        
-    
+# heapq를 이용한 풀이
+
+import heapq
+
+
+k = 15 # 네트워크 돌아간 초 = 무지가 먹은 횟수 
+food_times = [8,6,4] # 음식별 먹는데 걸리는 초 
+
+if sum(food_times) <= k : # 다 먹었으면 -1을 반환한다. 
+    print(-1)
+
+#  8,1 6,2 4,3
+# 가장 빨리 먹을 수 있는 3번 음식을 뺀다. 
+# 총 음식의 개수 3 x 음식을 먹는 시간 4 = 12를 뺀다. 12초가 지나야 다 먹으니까
+# 남은 시간은 15 -> 3됨 
+
+# 그 다음 작은 숫자인 2번 음식 6이니까 2 * 2 = 4 (남은 음식 2개 * 2번 음식을 다 먹는 시간)
+# 그런데 남은 시간이 3초임. 
+# 3초만 남았으므로 4번 음식의 번호를 출력한다.
+
+# 시간이 작은 음식부터 빼야 하므로 우선순위 큐를 이용
+q = []
+for i in range(len(food_times)) : # 음식 3개 
+   
+    #(음식시간.음식번호) 형태로 우선순위 큐에 삽입     
+    heapq.heappush(q, (food_times[i], i+1)) #heapq.heappush(heap, item) : #item을 heap에 추가
+    #print((food_times[i], i+1)) #(8,1) (6,2) (4,3)로 집어넣는다. 
+    # print(q) #  q = [(4,3), (6,2), (8,1)
+
+sum_value = 0 # 먹기 위해 사용한 시간 
+previous = 0 # 직전에 다 먹은 음식 시간
+length = len(food_times) # 남은 음식의 개수
+
+# sum_value + (현재의 음식시간 - 이전 음식 시간) * 현재 음식 개수와 k비교
+while sum_value + ((q[0][0] - previous)*length) <= k :
+    # print(q[0][0]) #4 
+     # heappop 함수는 가장 작은 원소를 힙에서 제거함과 동시에 그를 결괏값으로 리턴한다.
+     # heapq.heappop(heap) : heap에서 가장 작은 원소를 pop & 리턴. 비어 있는 경우 IndexError가 호출됨. 
+
+    now = heapq.heappop(q)[0] #4
+    sum_value += (now-previous)*length
+    length -= 1 # 다 먹은 음식 제외
+    previous = now # 이전 음식 시간 재 설정 4
+
+
+# 남은 음식 중에서 몇 번째 음식인지 확인하여 출력
+result = sorted(q, key=lambda x :x[1]) # 음식의 번호 기준으로 정렬
+print(result[(k-sum_value) % length][1])
