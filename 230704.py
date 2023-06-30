@@ -15,14 +15,22 @@
 예시 2 7755 = READY
 
 '''
-N = input()
 
-N = '123402'
-first,second = N[:len(N)//2], N[len(N)//2:] # 입력받은 문자형 숫자를 절반으로 잘라서 각각 변수에 넣는다.
-if sum(list(map(int,first))) == sum(list(map(int,second))) : # 숫자로 변환하고, 리스트로 만들어서 리스트 합계를 구한다. 두 개가 같으면 LUCKY, 아니면 READY 
-    print('LUCKY') 
-else :
-    print("READY")
+'''문제 해결 프로세스
+입력받은 문자를 절반으로 자른다
+각각 변수에 넣는다. 
+숫자로 변환한다. 
+리스트로 만들어서 합계를 구한다. 
+두 개가 같으면 LUCKY, 아니면 READY 
+'''
+
+
+# N = '123402'
+# first,second = N[:len(N)//2], N[len(N)//2:] 
+# if sum(list(map(int,first))) == sum(list(map(int,second))) : 
+#     print('LUCKY') 
+# else :
+#     print("READY")
 
 
 
@@ -40,21 +48,33 @@ print(ord('1')) # A= 65 1=49 ord를 이용하는 방법......
 '''
 
 
-a = 'K1KA5CB7'
-a = list(a)
-a.sort() # 개별 리스트로 바꾸고 크기순으로 미리 정렬 -> ['1', '5', '7', 'A', 'B', 'C', 'K', 'K']
-print(a)
 
-num = 0
-string = ''
 
-for i in a :
-    try : # 숫자로 바꿨을 때 변하면 num에 더한다 -> 13
-        num += int(i) 
-    except : # 에러나면 문자니까 string에 더한다  -> ABCKK
-        string += i
+'''문제 해결 프로세스
 
-print(string + str(num)) # 두갤 합친다. 
+단어를 리스트로 바꾼다
+크기순으로 정렬한다
+단어를 숫자로 바꿔본다. 
+에러나면 문자니까 문자를 더함 
+에러 안나면 숫자니까 sum 
+확인이 끝나면 두갤 합친다. 
+'''
+
+
+# stringNum = 'K1KA5CB7'
+# stringNum = list(stringNum)
+# stringNum.sort() 
+
+# num = 0
+# string = ''
+
+# for i in stringNum :
+#     try : 
+#         num += int(i) 
+#     except :
+#         string += i
+
+# print(string + str(num))
 
 
 
@@ -82,32 +102,44 @@ print(string + str(num)) # 두갤 합친다.
 
 # 입출력 예에 대한 설명
 # 입출력 예 #1
-
 # 문자열을 1개 단위로 잘라 압축했을 때 가장 짧습니다.
-
 # 입출력 예 #2
-
 # 문자열을 8개 단위로 잘라 압축했을 때 가장 짧습니다.
-
 # 입출력 예 #3
-
 # 문자열을 3개 단위로 잘라 압축했을 때 가장 짧습니다.
-
 # 입출력 예 #4
-
 # 문자열을 2개 단위로 자르면 "abcabcabcabc6de" 가 됩니다.
 # 문자열을 3개 단위로 자르면 "4abcdededededede" 가 됩니다.
 # 문자열을 4개 단위로 자르면 "abcabcabcabc3dede" 가 됩니다.
 # 문자열을 6개 단위로 자를 경우 "2abcabc2dedede"가 되며, 이때의 길이가 14로 가장 짧습니다.
-
 # 입출력 예 #5
-
 # 문자열은 제일 앞부터 정해진 길이만큼 잘라야 합니다.
 # 따라서 주어진 문자열을 x / ababcdcd / ababcdcd 로 자르는 것은 불가능 합니다.
 # 이 경우 어떻게 문자열을 잘라도 압축되지 않으므로 가장 짧은 길이는 17이 됩니다.
 
 
-# '''
+# 가장 짧은 문자열 반환 
+word = 'abcabcabcabcdededededede'
+trns_word = '2abcabc2dedede'
+print(len(trns_word))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 '''자물쇠와 열쇠
