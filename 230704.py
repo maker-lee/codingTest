@@ -25,12 +25,12 @@
 '''
 
 
-# N = '123402'
-# first,second = N[:len(N)//2], N[len(N)//2:] 
-# if sum(list(map(int,first))) == sum(list(map(int,second))) : 
-#     print('LUCKY') 
-# else :
-#     print("READY")
+N = '123402'
+first,second = N[:len(N)//2], N[len(N)//2:] 
+if sum(list(map(int,first))) == sum(list(map(int,second))) : 
+    print('LUCKY') 
+else :
+    print("READY")
 
 
 
@@ -61,20 +61,20 @@ print(ord('1')) # A= 65 1=49 ord를 이용하는 방법......
 '''
 
 
-# stringNum = 'K1KA5CB7'
-# stringNum = list(stringNum)
-# stringNum.sort() 
+stringNum = 'K1KA5CB7'
+stringNum = list(stringNum)
+stringNum.sort() 
 
-# num = 0
-# string = ''
+num = 0
+string = ''
 
-# for i in stringNum :
-#     try : 
-#         num += int(i) 
-#     except :
-#         string += i
+for i in stringNum :
+    try : 
+        num += int(i) 
+    except :
+        string += i
 
-# print(string + str(num))
+print(string + str(num))
 
 
 
@@ -128,7 +128,47 @@ print(len(trns_word))
 
 
 
+'''
+문제 해결 프로세스
 
+단어를 2개씩 쪼개서 바로 앞뒤가 같은게 몇개인지 세본다  
+ 카운트 1을 디폴트로 놓는다. 
+ 카운트 단어1단어2/단어3단어4 가 같으면 뒤에 34를 삭제하고 단어12앞에 카운트 +1한다  
+ 앞뒤 단어가 다르면 맨앞 단어는 카운트 단어1단어2의 모양으로 고정되고 
+ 카운트는 다시 1로 돌아간다
+ 카운트 새로운단어1/단어2 형태로 뒤에 단어들을 비교한다. 
+ 반복한다.
+ 수정된 단어를 리스트에 저장한다. 
+~전체 단어의 1/2개로 쪼갤만큼 반복한다.  
+리스트에서 가장 len() 짧은걸 리턴한다. 
+'''
+
+s = 'ababcdcdababcdcd'
+
+total = []
+for n in range(1,len(s)//2+1) : # 1개 단어 ~ 전체 단어의 1/2개씩 잘라서 비교할 예정 
+    cnt = 1
+    word = ''
+    word_list = []
+
+    for i in range(0,len(s)+1,n) : # 단어 슬라이싱 
+        
+        current_word = s[i:i+n] # 앞 단어
+        next_word = s[i+n:i+n+n] # 뒷 단어
+
+        if current_word == next_word : # 앞 단어가 뒷 단어와 같으면
+            cnt += 1
+            word = str(cnt)+current_word
+        elif current_word != next_word and cnt > 1 : # 앞 단어가 반복됐다가 뒷 단어와 달라지기 시작 
+            word_list.append(word)
+            cnt = 1
+        else : # 앞 단어와 뒷 단어가 같아본적이 없음 
+            word_list.append(current_word) 
+            cnt = 1 
+    #total.append(''.join(word_list))  # 압축된 단어
+    total.append(len(''.join(word_list))) # 압축된 단어 수
+
+print(min(total))
 
 
 
