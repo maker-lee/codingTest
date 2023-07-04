@@ -221,6 +221,53 @@ lock의 상하좌우를 key의 배열-1 만큼 키운다, 배열의 빈칸은 0�
     90도 돌려서 다시 if문을 돈다.
 '''
 
+def solution(key, lock):    
+    import copy
+    
+    answer = False
 
+    # 90도 돌리는 함수 
+    def degree90(a) :
+        n = len(a)
+        m = len(a[0])
+        result = [[0] * n for _ in range(m)]
+        for i in range(n) :
+            for j in range(m) :
+                result[j][n-i-1] = a[i][j]
+        return result 
+
+    # lock의 구멍 부분 제외 다 10로 바꿈 #[[10, 10, 10], [10, 10, 0], [10, 0, 10]]
+    for a in range(len(lock)) :
+        for b in range(len(lock[a])) :
+            if lock[a][b] == 1 :
+                lock[a][b] = 10
+            else :
+                pass 
+    lock_cnt = sum(lock,[]).count(0)
+
+    # key의 돌기 부분 제외 다 10으로 바꿈 [[10, 10, 10], [0, 10, 10], [10, 0, 0]]
+    for a in range(len(key)) :
+        for b in range(len(key[a])) :
+            if key[a][b] == 1 :
+                key[a][b] = 0 
+            else :
+                key[a][b] = 10
+
+    for _ in range(4) :
+        key90 = degree90(key)
+        res = copy.deepcopy(lock[:]) # 뭐가 됐든 lock과 크기가 같으면 됨 
+
+        for list1 in range(len(lock)) :
+            for list2 in range(len(lock[list1])) :
+                res[list1][list2] = lock[list1][list2] + key90[list1][list2]            
+
+        if sum(res,[]).count(0) == lock_cnt :
+            answer = True
+            break
+        else :
+            key = degree90(key)
+            continue        
+
+    return answer
 
 
