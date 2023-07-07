@@ -211,63 +211,63 @@ lock의 상하좌우를 key의 배열-1 만큼 키운다, 배열의 빈칸은 0�
     90도 돌려서 다시 if문을 돈다.
 # '''
 
-key =[[0, 0, 0], [1, 0, 0], [0, 1, 1]]	
-lock = [[1, 1, 1], [1, 1, 0], [1, 0, 1]]	
+# key =[[0, 0, 0], [1, 0, 0], [0, 1, 1]]	
+# lock = [[1, 1, 1], [1, 1, 0], [1, 0, 1]]	
 
 
-def solution(key, lock):    
+# def solution(key, lock):    
    
-    import copy
+#     import copy
     
-    answer = False
+#     answer = False
 
-    # 90도 돌리는 함수 
-    def degree90(a) :
-        n = len(a) # 리스트의 길이 
-        m = len(a[0]) # 리스트 내의 리스트 길이
-        result = [[0] * n for _ in range(m)]  
-        for i in range(n) : # 리스트의 길이만큼 반복
-            for j in range(m) : # 리스트 내의 리스트 길이만큼 반복
-                result[j][n-i-1] = a[i][j]  # 리스트[][] = a[][]
-        return result 
+#     # 90도 돌리는 함수 
+#     def degree90(a) :
+#         n = len(a) # 리스트의 길이 
+#         m = len(a[0]) # 리스트 내의 리스트 길이
+#         result = [[0] * n for _ in range(m)]  
+#         for i in range(n) : # 리스트의 길이만큼 반복
+#             for j in range(m) : # 리스트 내의 리스트 길이만큼 반복
+#                 result[j][n-i-1] = a[i][j]  # 리스트[][] = a[][]
+#         return result 
 
-    # lock의 구멍 부분 제외 다 10로 바꿈 #[[10, 10, 10], [10, 10, 0], [10, 0, 10]]
-    for a in range(len(lock)) :
-        for b in range(len(lock[a])) :
-            if lock[a][b] == 1 :
-                lock[a][b] = 10
-            else :
-                pass 
-    lock_cnt = sum(lock,[]).count(0)
+#     # lock의 구멍 부분 제외 다 10로 바꿈 #[[10, 10, 10], [10, 10, 0], [10, 0, 10]]
+#     for a in range(len(lock)) :
+#         for b in range(len(lock[a])) :
+#             if lock[a][b] == 1 :
+#                 lock[a][b] = 10
+#             else :
+#                 pass 
+#     lock_cnt = sum(lock,[]).count(0)
 
-    # key의 돌기 부분 제외 다 10으로 바꿈 [[10, 10, 10], [0, 10, 10], [10, 0, 0]]
-    for a in range(len(key)) :
-        for b in range(len(key[a])) :
-            if key[a][b] == 1 :
-                key[a][b] = 0 
-            else :
-                key[a][b] = 10
+#     # key의 돌기 부분 제외 다 10으로 바꿈 [[10, 10, 10], [0, 10, 10], [10, 0, 0]]
+#     for a in range(len(key)) :
+#         for b in range(len(key[a])) :
+#             if key[a][b] == 1 :
+#                 key[a][b] = 0 
+#             else :
+#                 key[a][b] = 10
 
 
-# 이러면 크기가 같을 때만 true가 나옴
-    for _ in range(4) :
-        key90 = degree90(key)
-        res = copy.deepcopy(lock[:]) # 뭐가 됐든 lock과 크기가 같으면 됨 
+# # 이러면 크기가 같을 때만 true가 나옴
+#     for _ in range(4) :
+#         key90 = degree90(key)
+#         res = copy.deepcopy(lock[:]) # 뭐가 됐든 lock과 크기가 같으면 됨 
 
-        for list1 in range(len(lock)) :
-            for list2 in range(len(lock[list1])) :
-                res[list1][list2] = lock[list1][list2] + key90[list1][list2]            
+#         for list1 in range(len(lock)) :
+#             for list2 in range(len(lock[list1])) :
+#                 res[list1][list2] = lock[list1][list2] + key90[list1][list2]            
 
-        if sum(res,[]).count(0) == lock_cnt :
-            answer = True
-            break
-        else :
-            key = degree90(key)
-            continue        
+#         if sum(res,[]).count(0) == lock_cnt :
+#             answer = True
+#             break
+#         else :
+#             key = degree90(key)
+#             continue        
 
-    return answer
+#     return answer
 
-print(solution(key, lock))
+# print(solution(key, lock))
 
 
 '''
@@ -277,8 +277,26 @@ key와 lock을 더한다.
 0이 모두 사라지면 성공
 
 '''
+2
+1
+1
+1
+#------------------#
+2
+0
+0
+2
+#------------------#
 
+2
+1
+2
+1
 
+2
+1
+1
+1
 
 
 lock = [[1, 1, 1], [1, 1, 0], [1, 0, 1]]
@@ -301,84 +319,35 @@ key_size = len(key[0])
 x = 0
 y = 0 
 
-# while True : 
-for i in range(key_size) :
-    for j in range(key_size) : # 키를 반복해서 넣어보겠다.
-        try :
-            if x <= lock_size : # 바위의 범위보다 작을때 
-                print(lock[i+x][j+y] + key[i][j])
-                x = 1
-        except :
-            # 범위를 벗어나면 한 줄 아래로 내린다. 
-            x = 0
-            y += 1 
-print('계산 끝')
+# 90도 돌리는 함수 
+def degree90(a) :
+    n = len(a) # 리스트의 길이 
+    m = len(a[0]) # 리스트 내의 리스트 길이
+    result = [[0] * n for _ in range(m)]  
+    for i in range(n) : # 리스트의 길이만큼 반복
+        for j in range(m) : # 리스트 내의 리스트 길이만큼 반복
+            result[j][n-i-1] = a[i][j]  # 리스트[][] = a[][]
+    return result 
 
-
-
-
-# # 90도 돌리는 함수 
-# def degree90(a) :
-#     n = len(a) # 리스트의 길이 
-#     m = len(a[0]) # 리스트 내의 리스트 길이
-#     result = [[0] * n for _ in range(m)]  
-#     for i in range(n) : # 리스트의 길이만큼 반복
-#         for j in range(m) : # 리스트 내의 리스트 길이만큼 반복
-#             result[j][n-i-1] = a[i][j]  # 리스트[][] = a[][]
-#     return result 
-
-
-# # 맞나 안맞나 확인 
-# def check_match(lock, key):
-#     for i in range(len(lock)):
-#         for j in range(len(lock)):
-#             if lock[i][j] + key[i][j] != 1:
-#                 return False
-#     return True
-
-
-
-
-# for i in range(key_size) :
-#     for j in range(key_size) :
-#         print(lock[i][j] + key[i][j])
+while True : 
+    degree90(key)
     
-
-
-
-
-# new_key_0 = [[0] * n for _ in range(n)] # lock만큼 키워 
-# new_key_1 = [[0] * n for _ in range(n)]
-# new_key_2 = [[0] * n for _ in range(n)]
-# new_key_3 = [[0] * n for _ in range(n)]
-
-# # 90도로 돌린 키들 
-# for i in range(m):
-#     for j in range(m):
-#         new_key_0[i][j] = key[i][j]
-#         new_key_1[j][m-i-1] = key[i][j]
-#         new_key_2[m-i-1][m-j-1] = key[i][j]
-#         new_key_3[m-j-1][i] = key[i][j]
-
-
-#     for key in [new_key_0, new_key_1, new_key_2, new_key_3]:
-#         for i in range(n):
-#             for j in range(n):
-#                 left_up_key = [row[i:] + [0]*i for row in key[j:]] + [[0]*n]*j
-#                 if check_match(lock, left_up_key):
-#                     return True
-                
-
-                
-    #             left_down_key = [[0]*n]*(n-j-1) + [row[i:] + [0]*i for row in key[:j+1]]
-    #             if check_match(lock, left_down_key):
-    #                 return True
-    #             right_up_key = [[0]*i + row[:n-i] for row in key[j:]] + [[0]*n]*j
-    #             if check_match(lock, right_up_key):
-    #                 return True
-    #             right_down_key = [[0]*n]*(n-j-1) + [[0]*i + row[:n-i] for row in key[:j+1]]
-    #             if check_match(lock, right_down_key):
-    #                 return True
-    # return False
+    for i in range(key_size) : #가로
+        for j in range(key_size) : # 세로
+            try : 
+                print(lock[i+x][j+y] + key[i][j])             
+           
+                if x <= lock_size : # 바위의 범위보다 작을때        
+                    x += 1
+                else :
+                    x = 0                    
+            except :
+                # 범위를 벗어나면 한 줄 아래로 내린다. 
+                y += 1 
+                print('#------------------#')
+                if y > lock_size :
+                    break
+            
+print('계산끝')
 
 
