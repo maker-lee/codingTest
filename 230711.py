@@ -25,14 +25,20 @@ numbers = [5,0,2,7]
 set으로 반복 지우고 리스트로 바꿔서 정렬한다. 
 '''
 
-numbers = [2,1,3,4,1] 
-# result = [2,3,4,5,6,7]  
+numbers = [2,1,3,4,1]  # result = [2,3,4,5,6,7]  
 
 answer = []
 for i in range(len(numbers)) : 
     for j in range(i+1, len(numbers)) :
         answer.append(numbers[i] + numbers[j])
-print(sorted(list(set(answer))))
+print(sorted(set(answer)))
+
+
+
+def solution(numbers):
+    return sorted(set([a+b for i, a in enumerate(numbers) for j, b in enumerate(numbers) if i!=j]))
+
+
 
 
 
